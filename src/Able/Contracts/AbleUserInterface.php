@@ -3,126 +3,80 @@
 namespace Able\Contracts;
 
 /**
- * This file is part of Laratrust,
+ * This file is part of Able,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @package Able
  */
 
-interface LaratrustUserInterface
+interface AbleUserInterface
 {
     /**
-     * Many-to-Many relations with Role.
+     * Many-to-Many relations with Group.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function roles();
-
-    /**
-     * Many-to-Many relations with Role.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function permissions();
+    public function groups();
 
     /**
      * Checks if the user has a role by its name.
      *
      * @param string|array $name       Role name or array of role names.
-     * @param string|bool  $group      Group or requireAll value
      * @param bool         $requireAll All roles in the array are required.
      *
      * @return bool
      */
-    public function hasRole($name, $group = null, $requireAll = false);
+    public function hasRole($name, $requireAll = false);
     
     /**
      * Check if user has a permission by its name.
      *
      * @param string|array $permission Permission string or array of permissions.
-     * @param string|bool  $group      Group or requireAll value
      * @param bool         $requireAll All permissions in the array are required.
      *
      * @return bool
      */
-    public function can($permission, $group = null, $requireAll = false);
+    public function can($permission, $requireAll = false);
     
     /**
      * Checks role(s) and permission(s).
      *
      * @param string|array $roles       Array of roles or comma separated string
      * @param string|array $permissions Array of permissions or comma separated string.
-     * @param string|bool  $group       Group or options value
      * @param array        $options     validate_all (true|false) or return_type (boolean|array|both)
      *
      * @throws \InvalidArgumentException
      *
      * @return array|bool
      */
-    public function ability($roles, $permissions, $group = null, $options = []);
+    public function ability($roles, $permissions, $options = []);
     
     /**
      * Alias to eloquent many-to-many relation's attach() method.
      *
-     * @param mixed  $role
-     * @param string $group
+     * @param mixed  $group
      */
-    public function attachRole($role, $group = null);
+    public function attachGroup($group);
     
     /**
      * Alias to eloquent many-to-many relation's detach() method.
      *
-     * @param mixed  $role
-     * @param string $group
+     * @param mixed  $group
      */
-    public function detachRole($role, $group = null);
+    public function detachGroup($group);
     
     /**
-     * Attach multiple roles to a user
+     * Attach multiple groups to a user
      *
-     * @param mixed  $roles
-     * @param string $group
+     * @param mixed  $groups
      */
-    public function attachRoles($roles, $group = null);
+    public function attachGroups($groups);
     
     /**
-     * Detach multiple roles from a user
+     * Detach multiple groups from a user
      *
-     * @param mixed  $roles
-     * @param string $group
+     * @param mixed  $groups
      */
-    public function detachRoles($roles, $group = null);
-
-    /**
-     * Alias to eloquent many-to-many relation's attach() method.
-     *
-     * @param mixed  $permission
-     * @param string $group
-     */
-    public function attachPermission($permission);
-    
-    /**
-     * Alias to eloquent many-to-many relation's detach() method.
-     *
-     * @param mixed  $permission
-     * @param string $group
-     */
-    public function detachPermission($permission);
-    
-    /**
-     * Attach multiple permissions to a user
-     *
-     * @param mixed  $permissions
-     * @param string $group
-     */
-    public function attachPermissions($permissions);
-    
-    /**
-     * Detach multiple permissions from a user
-     *
-     * @param mixed  $permissions
-     * @param string $group
-     */
-    public function detachPermissions($permissions);
+    public function detachGroups($groups = null);
 }

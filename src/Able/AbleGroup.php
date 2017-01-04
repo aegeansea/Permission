@@ -3,21 +3,21 @@
 namespace Able;
 
 /**
- * This file is part of Laratrust,
+ * This file is part of Able,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @package Able
  */
 
-use Laratrust\Contracts\LaratrustGroupInterface;
-use Laratrust\Traits\LaratrustGroupTrait;
+use Able\Contracts\AbleGroupInterface;
+use Able\Traits\AbleGroupTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 
-class LaratrustGroup extends Model implements LaratrustGroupInterface
+class AbleGroup extends Model implements AbleGroupInterface
 {
-    use LaratrustGroupTrait;
+    use AbleGroupTrait;
 
     /**
      * The database table used by the model.
@@ -35,6 +35,6 @@ class LaratrustGroup extends Model implements LaratrustGroupInterface
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = Config::get('laratrust.groups_table');
+        $this->table = Config::get('able.groups_table');
     }
 }

@@ -3,21 +3,21 @@
 namespace Able;
 
 /**
- * This file is part of Laratrust,
+ * This file is part of Able,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @package Able
  */
 
-use Laratrust\Contracts\LaratrustPermissionInterface;
-use Laratrust\Traits\LaratrustPermissionTrait;
+use Able\Contracts\AblePermissionInterface;
+use Able\Traits\AblePermissionTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 
-class LaratrustPermission extends Model implements LaratrustPermissionInterface
+class AblePermission extends Model implements AblePermissionInterface
 {
-    use LaratrustPermissionTrait;
+    use AblePermissionTrait;
 
     /**
      * The database table used by the model.
@@ -35,6 +35,6 @@ class LaratrustPermission extends Model implements LaratrustPermissionInterface
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = Config::get('laratrust.permissions_table');
+        $this->table = Config::get('able.permissions_table');
     }
 }

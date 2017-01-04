@@ -3,11 +3,11 @@
 namespace Able;
 
 /**
- * This file is part of Laratrust,
+ * This file is part of Able,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @package Able
  */
 
 use Illuminate\Console\Command;
@@ -19,14 +19,14 @@ class SetupCommand extends Command
      *
      * @var string
      */
-    protected $name = 'laratrust:setup';
+    protected $name = 'able:setup';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Setup migration and models for Laratrust';
+    protected $description = 'Setup migration and models for Able';
 
     /**
      * Commands to call with their description
@@ -34,11 +34,11 @@ class SetupCommand extends Command
      * @var array
      */
     protected $calls = [
-        'laratrust:migration' => 'Creating migration',
-        'laratrust:make-role' => 'Creating Role model',
-        'laratrust:make-permission' => 'Creating Permission model',
-        'laratrust:make-group' => 'Creating Group model',
-        'laratrust:add-trait' => 'Adding LaratrustUserTrait to User model'
+        'able:migration' => 'Creating migration',
+        'able:make-role' => 'Creating Role model',
+        'able:make-permission' => 'Creating Permission model',
+        'able:make-group' => 'Creating Group model',
+        'able:add-trait' => 'Adding AbleUserTrait to User model'
     ];
 
     /**

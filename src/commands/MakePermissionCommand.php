@@ -3,11 +3,11 @@
 namespace Able;
 
 /**
- * This file is part of Laratrust,
+ * This file is part of Able,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @package Able
  */
 
 use Illuminate\Console\GeneratorCommand;
@@ -20,7 +20,7 @@ class MakePermissionCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'laratrust:make-permission';
+    protected $name = 'able:make-permission';
 
     /**
      * The console command description.
@@ -63,7 +63,7 @@ class MakePermissionCommand extends GeneratorCommand
      */
     protected function getNameInput()
     {
-        return Config::get('laratrust.permission', 'Permission');
+        return Config::get('able.permission', 'Permission');
     }
 
     /**

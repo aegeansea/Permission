@@ -3,18 +3,17 @@
 namespace Able;
 
 /**
- * This file is part of Laratrust,
+ * This file is part of Able,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @package Able
  */
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Factory;
-use Laratrust\LaratrustRegistersBladeDirectives;
 
-class LaratrustServiceProvider extends ServiceProvider
+class AbleServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -29,19 +28,19 @@ class LaratrustServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        'Migration' => 'command.laratrust.migration',
-        'MakeRole' => 'command.laratrust.make-role',
-        'MakePermission' => 'command.laratrust.make-permission',
-        'MakeGroup' => 'command.laratrust.make-group',
-        'AddLaratrustUserTraitUse' => 'command.laratrust.add-trait',
-        'Setup' => 'command.laratrust.setup',
-        'MakeSeeder' => 'command.laratrust.seeder'
+        'Migration' => 'command.able.migration',
+        'MakeRole' => 'command.able.make-role',
+        'MakePermission' => 'command.able.make-permission',
+        'MakeGroup' => 'command.able.make-group',
+        'AddAbleUserTraitUse' => 'command.able.add-trait',
+        'Setup' => 'command.able.setup',
+        'MakeSeeder' => 'command.able.seeder'
     ];
 
     /**
      * Bootstrap the application events.
      *
-     * @param  Factory $view
+     * @param   $view
      * @return void
      */
     public function boot()
@@ -60,7 +59,7 @@ class LaratrustServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerLaratrust();
+        $this->registerAble();
 
         $this->registerCommands();
 
@@ -68,27 +67,17 @@ class LaratrustServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the blade directives
-     *
-     * @return void
-     */
-    private function registerBladeDirectives()
-    {
-        (new LaratrustRegistersBladeDirectives)->handle($this->app->version());
-    }
-
-    /**
      * Register the application bindings.
      *
      * @return void
      */
-    private function registerLaratrust()
+    private function registerAble()
     {
-        $this->app->bind('laratrust', function ($app) {
-            return new Laratrust($app);
+        $this->app->bind('able', function ($app) {
+            return new Able($app);
         });
 
-        $this->app->alias('laratrust', 'Laratrust\Laratrust');
+        $this->app->alias('able', 'Able\Able');
     }
 
     /**
@@ -109,55 +98,55 @@ class LaratrustServiceProvider extends ServiceProvider
     
     protected function registerMigrationCommand()
     {
-        $this->app->singleton('command.laratrust.migration', function () {
+        $this->app->singleton('command.able.migration', function () {
             return new MigrationCommand();
         });
     }
     
     protected function registerMakeRoleCommand()
     {
-        $this->app->singleton('command.laratrust.make-role', function ($app) {
+        $this->app->singleton('command.able.make-role', function ($app) {
             return new MakeRoleCommand($app['files']);
         });
     }
     
     protected function registerMakeGroupCommand()
     {
-        $this->app->singleton('command.laratrust.make-group', function ($app) {
+        $this->app->singleton('command.able.make-group', function ($app) {
             return new MakeGroupCommand($app['files']);
         });
     }
 
     protected function registerMakePermissionCommand()
     {
-        $this->app->singleton('command.laratrust.make-permission', function ($app) {
+        $this->app->singleton('command.able.make-permission', function ($app) {
             return new MakePermissionCommand($app['files']);
         });
     }
     
-    protected function registerAddLaratrustUserTraitUseCommand()
+    protected function registerAddAbleUserTraitUseCommand()
     {
-        $this->app->singleton('command.laratrust.add-trait', function () {
-            return new AddLaratrustUserTraitUseCommand();
+        $this->app->singleton('command.able.add-trait', function () {
+            return new AddAbleUserTraitUseCommand();
         });
     }
     
     protected function registerSetupCommand()
     {
-        $this->app->singleton('command.laratrust.setup', function () {
+        $this->app->singleton('command.able.setup', function () {
             return new SetupCommand();
         });
     }
 
     protected function registerMakeSeederCommand()
     {
-        $this->app->singleton('command.laratrust.seeder', function () {
+        $this->app->singleton('command.able.seeder', function () {
             return new MakeSeederCommand();
         });
     }
 
     /**
-     * Merges user's and laratrust's configs.
+     * Merges user's and able's configs.
      *
      * @return void
      */
@@ -165,7 +154,7 @@ class LaratrustServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             __DIR__.'/../config/config.php',
-            'laratrust'
+            'able'
         );
     }
 

@@ -3,11 +3,11 @@
 namespace Able;
 
 /**
- * This file is part of Laratrust,
+ * This file is part of Able,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @package Able
  */
 
 use Illuminate\Console\Command;
@@ -20,14 +20,14 @@ class MakeSeederCommand extends Command
      *
      * @var string
      */
-    protected $name = 'laratrust:seeder';
+    protected $name = 'able:seeder';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Creates the seeder following the Laratrust specifications.';
+    protected $description = 'Creates the seeder following the Able specifications.';
 
     /**
      * Execute the console command.
@@ -36,7 +36,7 @@ class MakeSeederCommand extends Command
      */
     public function fire()
     {
-        $this->laravel->view->addNamespace('laratrust', substr(__DIR__, 0, -8).'views');
+        $this->laravel->view->addNamespace('able', substr(__DIR__, 0, -8).'views');
 
         if ($this->createSeeder()) {
             $this->info("Seeder successfully created!");
@@ -56,21 +56,21 @@ class MakeSeederCommand extends Command
      */
     protected function createSeeder()
     {
-        $permission = Config::get('laratrust.permission', 'App\Permission');
-        $role = Config::get('laratrust.role', 'App\Role');
-        $rolePermissions = Config::get('laratrust.permission_role_table');
-        $userPermissions = Config::get('laratrust.permission_user_table');
-        $roleUsers = Config::get('laratrust.role_user_table');
+        $permission = Config::get('able.permission', 'App\Permission');
+        $role = Config::get('able.role', 'App\Role');
+        $rolePermissions = Config::get('able.permission_role_table');
+        $userGroups = Config::get('able.group_user_table');
+        $roleUsers = Config::get('able.role_user_table');
         $user   = Config::get('auth.providers.users.model', 'App\User');
 
         $migrationPath = $this->getMigrationPath();
-        $output = $this->laravel->view->make('laratrust::generators.seeder')
+        $output = $this->laravel->view->make('able::generators.seeder')
             ->with(compact([
                 'role',
                 'permission',
                 'user',
                 'rolePermissions',
-                'userPermissions',
+                'userGroups',
                 'roleUsers',
             ]))
             ->render();
@@ -91,6 +91,6 @@ class MakeSeederCommand extends Command
      */
     protected function getMigrationPath()
     {
-        return database_path("seeds/LaratrustSeeder.php");
+        return database_path("seeds/AbleSeeder.php");
     }
 }

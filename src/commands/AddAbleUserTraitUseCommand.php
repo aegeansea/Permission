@@ -3,33 +3,33 @@
 namespace Able;
 
 /**
- * This file is part of Laratrust,
+ * This file is part of Able,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @package Able
  */
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
-use Laratrust\Traits\LaratrustUserTrait;
+use Able\Traits\AbleUserTrait;
 use Traitor\Traitor;
 
-class AddLaratrustUserTraitUseCommand extends Command
+class AddAbleUserTraitUseCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'laratrust:add-trait';
+    protected $name = 'able:add-trait';
 
     /**
      * Trait added to User model
      *
      * @var string
      */
-    protected $targetTrait = LaratrustUserTrait::class;
+    protected $targetTrait = AbleUserTrait::class;
 
     /**
      * Execute the console command.
@@ -45,22 +45,22 @@ class AddLaratrustUserTraitUseCommand extends Command
             return;
         }
 
-        if ($this->alreadyUsesLaratrustUserTrait()) {
-            $this->error("Class $userModel already uses LaratrustUserTrait.");
+        if ($this->alreadyUsesAbleUserTrait()) {
+            $this->error("Class $userModel already uses AbleUserTrait.");
             return;
         }
 
         Traitor::addTrait($this->targetTrait)->toClass($userModel);
 
-        $this->info("LaratrustUserTrait added successfully");
+        $this->info("AbleUserTrait added successfully");
     }
 
     /**
      * @return bool
      */
-    protected function alreadyUsesLaratrustUserTrait()
+    protected function alreadyUsesAbleUserTrait()
     {
-        return in_array(LaratrustUserTrait::class, class_uses($this->getUserModel()));
+        return in_array(AbleUserTrait::class, class_uses($this->getUserModel()));
     }
 
     /**
@@ -68,7 +68,7 @@ class AddLaratrustUserTraitUseCommand extends Command
      */
     public function getDescription()
     {
-        return "Add LaratrustUserTrait to {$this->getUserModel()} class";
+        return "Add AbleUserTrait to {$this->getUserModel()} class";
     }
 
     /**

@@ -3,22 +3,22 @@
 namespace Able\Contracts;
 
 /**
- * This file is part of Laratrust,
+ * This file is part of Able,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @package Able
  */
 
-interface LaratrustRoleInterface
+interface AbleRoleInterface
 {
     /**
-     * Many-to-Many relations with the user model.
+     * Many-to-Many relations with the group model.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users();
-    
+    public function groups();
+
     /**
      * Many-to-Many relations with the permission model.
      *

@@ -3,11 +3,11 @@
 namespace Able;
 
 /**
- * This file is part of Laratrust,
+ * This file is part of Able,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @package Able
  */
 
 use Illuminate\Console\GeneratorCommand;
@@ -20,7 +20,7 @@ class MakeGroupCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'laratrust:make-group';
+    protected $name = 'able:make-group';
 
     /**
      * The console command description.
@@ -63,7 +63,7 @@ class MakeGroupCommand extends GeneratorCommand
      */
     protected function getNameInput()
     {
-        return Config::get('laratrust.group', 'Group');
+        return Config::get('able.group', 'Group');
     }
 
     /**

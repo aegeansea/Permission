@@ -24,11 +24,14 @@ class AbleSetupTables extends Migration
         // Create table for storing groups
         Schema::create('{{ $able['groups_table'] }}', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->integer('company_id')->unsigned()->nullable();
+            $table->string('name');
+            $table->integer('{{ $able['company_foreign_key'] }}')->unsigned()->nullable();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
+
+            $table->foreign('{{ $able['company_foreign_key'] }}')->references('id')->on('{{ $able['companies_table'] }}')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
 
         // Create table for storing permissions
@@ -74,8 +77,6 @@ class AbleSetupTables extends Migration
             $table->foreign('{{ $able['group_foreign_key'] }}')->references('id')->on('{{ $able['groups_table'] }}')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('{{ $able['user_foreign_key'] }}')->references('{{ $user->getKeyName() }}')->on('{{ $user->getTable() }}')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('{{ $able['company_foreign_key'] }}')->references('id')->on('{{ $able['companies_table'] }}')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->primary(['{{ $able['group_foreign_key'] }}', '{{ $able['user_foreign_key'] }}']);

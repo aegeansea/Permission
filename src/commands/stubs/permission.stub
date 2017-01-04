@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Laratrust\LaratrustPermission;
+use Able\AblePermission;
 
-class DummyClass extends LaratrustPermission
+class DummyClass extends AblePermission
 {
     //
 }

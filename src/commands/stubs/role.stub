@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Laratrust\LaratrustRole;
+use Able\AbleRole;
 
-class DummyClass extends LaratrustRole
+class DummyClass extends AbleRole
 {
     //
 }

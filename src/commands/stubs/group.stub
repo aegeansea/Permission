@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Laratrust\LaratrustGroup;
+use Able\AbleGroup;
 
-class DummyClass extends LaratrustGroup
+class DummyClass extends AbleGroup
 {
     //
 }

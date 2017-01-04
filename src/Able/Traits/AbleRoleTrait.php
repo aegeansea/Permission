@@ -3,17 +3,17 @@
 namespace Able\Traits;
 
 /**
- * This file is part of Laratrust,
+ * This file is part of Able,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
+ * @package Able
  */
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cache;
 
-trait LaratrustRoleTrait
+trait AbleRoleTrait
 {
     /**
      * Big block of caching functionality
@@ -21,7 +21,7 @@ trait LaratrustRoleTrait
      */
     public function cachedPermissions()
     {
-        $cacheKey = 'laratrust_permissions_for_role_' . $this->getKey();
+        $cacheKey = 'able_permissions_for_role_' . $this->getKey();
 
         return Cache::remember($cacheKey, Config::get('cache.ttl', 60), function () {
             return $this->permissions()->get();
@@ -29,17 +29,17 @@ trait LaratrustRoleTrait
     }
 
     /**
-     * Many-to-Many relations with the user model.
+     * Many-to-Many relations with the group model.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users()
+    public function groups()
     {
         return $this->belongsToMany(
-            Config::get('auth.providers.users.model'),
-            Config::get('laratrust.role_user_table'),
-            Config::get('laratrust.role_foreign_key'),
-            Config::get('laratrust.user_foreign_key')
+            Config::get('able.group'),
+            Config::get('able.role_group_table'),
+            Config::get('able.role_foreign_key'),
+            Config::get('able.group_foreign_key')
         );
     }
 
@@ -51,10 +51,10 @@ trait LaratrustRoleTrait
     public function permissions()
     {
         return $this->belongsToMany(
-            Config::get('laratrust.permission'),
-            Config::get('laratrust.permission_role_table'),
-            Config::get('laratrust.role_foreign_key'),
-            Config::get('laratrust.permission_foreign_key')
+            Config::get('able.permission'),
+            Config::get('able.permission_role_table'),
+            Config::get('able.role_foreign_key'),
+            Config::get('able.permission_foreign_key')
         );
     }
 
@@ -65,7 +65,7 @@ trait LaratrustRoleTrait
      *
      * @return void|bool
      */
-    public static function bootLaratrustRoleTrait()
+    public static function bootAbleRoleTrait()
     {
         $flushCache = function ($role) {
             $role->flushCache();
@@ -73,7 +73,7 @@ trait LaratrustRoleTrait
         };
         
         // If the role doesn't use SoftDeletes
-        if (method_exists(Config::get('laratrust.role'), 'restored')) {
+        if (method_exists(Config::get('able.role'), 'restored')) {
             static::restored($flushCache);
         }
 
@@ -81,8 +81,8 @@ trait LaratrustRoleTrait
         static::saved($flushCache);
 
         static::deleting(function ($role) {
-            if (!method_exists(Config::get('laratrust.role'), 'bootSoftDeletes')) {
-                $role->users()->sync([]);
+            if (!method_exists(Config::get('able.role'), 'bootSoftDeletes')) {
+                $role->groups()->sync([]);
                 $role->permissions()->sync([]);
             }
         });
@@ -224,6 +224,6 @@ trait LaratrustRoleTrait
      */
     public function flushCache()
     {
-        Cache::forget('laratrust_permissions_for_role_' . $this->getKey());
+        Cache::forget('able_permissions_for_role_' . $this->getKey());
     }
 }
