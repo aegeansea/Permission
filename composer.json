@@ -1,0 +1,34 @@
+{
+    "name": "aegeansea/able",
+    "description": "laravel 5.3 RBAC with Group",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mjs",
+            "email": "mjs2198522@126.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/console": "~5.1",
+        "illuminate/support": "~5.1",
+        "illuminate/cache": "~5.1",
+        "kkszymanowski/traitor": "^0.2.0"
+    },
+    "autoload": {
+        "classmap": [
+            "src/commands"
+        ],
+        "psr-4": {
+            "Able\\": "src/Able/"
+        }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+}
