@@ -58,10 +58,10 @@ class MakeSeederCommand extends Command
     {
         $permission = Config::get('able.permission', 'App\Permission');
         $role = Config::get('able.role', 'App\Role');
-        $rolePermissions = Config::get('able.permission_role_table');
-        $userGroups = Config::get('able.group_user_table');
-        $roleUsers = Config::get('able.role_user_table');
         $user   = Config::get('auth.providers.users.model', 'App\User');
+        $rolePermissions = Config::get('able.permission_role_table');
+        $groupRoles = Config::get('able.role_group_table');
+        $userGroups = Config::get('able.group_user_table');
 
         $migrationPath = $this->getMigrationPath();
         $output = $this->laravel->view->make('able::generators.seeder')
@@ -70,8 +70,8 @@ class MakeSeederCommand extends Command
                 'permission',
                 'user',
                 'rolePermissions',
+                'groupRoles',
                 'userGroups',
-                'roleUsers',
             ]))
             ->render();
 

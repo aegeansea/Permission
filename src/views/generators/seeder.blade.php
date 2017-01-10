@@ -100,15 +100,15 @@ class AbleSeeder extends Seeder
     }
 
     /**
-     * Truncates all the laratrust tables and the users table
+     * Truncates all the Able tables and the users table
      * @return  void
      */
-    public function truncateLaratrustTables()
+    public function truncateAbleTables()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        DB::table('{{ config('laratrust.permission_role_table') }}')->truncate();
-        DB::table('{{ config('laratrust.permission_user_table') }}')->truncate();
-        DB::table('{{ config('laratrust.role_user_table') }}')->truncate();
+        DB::table('{{ config('able.permission_role_table') }}')->truncate();
+        DB::table('{{ config('able.role_group_table') }}')->truncate();
+        DB::table('{{ config('able.group_user_table') }}')->truncate();
         \{{ $user }}::truncate();
         \{{ $role }}::truncate();
         \{{ $permission }}::truncate();
